@@ -53,7 +53,9 @@ export default function PatientsPage() {
       await fetchPatients();
       resetForm();
     } catch (err) {
-      setError('Erreur lors de la sauvegarde du patient');
+      console.error('Error saving patient:', err);
+      const errorMessage = err.response?.data?.message || err.message || 'Erreur lors de la sauvegarde du patient';
+      setError(`Erreur: ${errorMessage}`);
     } finally {
       setLoading(false);
     }

@@ -4,7 +4,9 @@ import { db } from '../dataStore.js';
 
 export function authenticate(req, res, next) {
   const authHeader = req.headers.authorization;
+  
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    console.log('Auth failed: No token provided');
     return res.status(401).json({ message: 'Token manquant' });
   }
 
@@ -14,12 +16,14 @@ export function authenticate(req, res, next) {
     const decoded = jwt.verify(token, config.jwtSecret);
     const user = db.users.find((u) => u.id === decoded.id);
     if (!user) {
+      console.log('Auth failed: User not found for id:', decoded.id);
       return res.status(401).json({ message: 'Utilisateur introuvable' });
     }
     req.user = user;
     next();
   } catch (err) {
-    return res.status(401).json({ message: 'Token invalide' });
+    console.log('Auth failed: Token invalid', err.message);
+    return res.status(401).json({ message: 'Token invalide ou expiré' });
   }
 }
 

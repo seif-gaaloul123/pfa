@@ -3,7 +3,7 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { config } from './config.js';
-import { seedAdminUser } from './dataStore.js';
+import { initializeDatabase, seedAdminUser, seedDoctors } from './dataStore.js';
 import authRoutes from './routes/authRoutes.js';
 import patientRoutes from './routes/patientRoutes.js';
 import appointmentRoutes from './routes/appointmentRoutes.js';
@@ -33,7 +33,10 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
+// Initialize database and seed initial data
+initializeDatabase();
 seedAdminUser();
+seedDoctors();
 
 app.listen(config.port, () => {
   console.log(`Backend API listening on port ${config.port}`);

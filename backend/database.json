@@ -1,0 +1,214 @@
+{
+  "users": [
+    {
+      "id": "da704a08-6999-42d6-b574-f516c1104336",
+      "email": "admin@example.com",
+      "passwordHash": "$2a$10$TzJ1zG3J9P/Zmtk5DmWmCum/n8G395DfyMukKYM4vKjilgOVmWLee",
+      "role": "admin",
+      "createdAt": "2026-03-01T14:48:49.522Z"
+    },
+    {
+      "id": "966e423b-cd07-48eb-9f2a-16917f43ccb8",
+      "email": "dr.smith@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. John Smith",
+      "specialty": "Cardiology",
+      "createdAt": "2026-03-01T14:48:49.637Z"
+    },
+    {
+      "id": "338d765d-ae1e-4ec3-8a24-ad2924b4cc16",
+      "email": "dr.anderson@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. Sarah Anderson",
+      "specialty": "Cardiology",
+      "createdAt": "2026-03-01T14:48:49.641Z"
+    },
+    {
+      "id": "c10ce79c-dbbe-4f58-917d-7beda1115411",
+      "email": "dr.thompson@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. Robert Thompson",
+      "specialty": "Cardiology",
+      "createdAt": "2026-03-01T14:48:49.644Z"
+    },
+    {
+      "id": "630db4c6-fb92-4257-9cc5-7940f88c9f5e",
+      "email": "dr.white@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. Jennifer White",
+      "specialty": "Cardiology",
+      "createdAt": "2026-03-01T14:48:49.646Z"
+    },
+    {
+      "id": "069a1d6a-0491-4eb8-b4df-c8c5982ec314",
+      "email": "dr.johnson@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. Emily Johnson",
+      "specialty": "Neurology",
+      "createdAt": "2026-03-01T14:48:49.647Z"
+    },
+    {
+      "id": "a72160c0-6c65-4391-a28e-824ae6822d8e",
+      "email": "dr.miller@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. Thomas Miller",
+      "specialty": "Neurology",
+      "createdAt": "2026-03-01T14:48:49.648Z"
+    },
+    {
+      "id": "2b363854-fc42-4ac5-a76b-76ecb6469672",
+      "email": "dr.davis@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. Patricia Davis",
+      "specialty": "Neurology",
+      "createdAt": "2026-03-01T14:48:49.649Z"
+    },
+    {
+      "id": "957e61e2-6610-4bd6-99f4-b85bb93a3c3f",
+      "email": "dr.williams@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. Michael Williams",
+      "specialty": "Pediatrics",
+      "createdAt": "2026-03-01T14:48:49.654Z"
+    },
+    {
+      "id": "513a19bc-898c-4205-b322-64f53c32929f",
+      "email": "dr.moore@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. Linda Moore",
+      "specialty": "Pediatrics",
+      "createdAt": "2026-03-01T14:48:49.665Z"
+    },
+    {
+      "id": "91a0f12a-7c05-4a0e-bcd9-604f3d40cd81",
+      "email": "dr.taylor@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. James Taylor",
+      "specialty": "Pediatrics",
+      "createdAt": "2026-03-01T14:48:49.667Z"
+    },
+    {
+      "id": "3a814352-8d42-4702-9987-1f8aa9d47bd1",
+      "email": "dr.clark@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. Barbara Clark",
+      "specialty": "Pediatrics",
+      "createdAt": "2026-03-01T14:48:49.669Z"
+    },
+    {
+      "id": "702689cd-48c2-4ca6-b5d1-178441604add",
+      "email": "dr.brown@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. Sarah Brown",
+      "specialty": "Orthopedics",
+      "createdAt": "2026-03-01T14:48:49.673Z"
+    },
+    {
+      "id": "ac4a906b-9b66-498a-94c5-33030966d0b2",
+      "email": "dr.hall@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. Richard Hall",
+      "specialty": "Orthopedics",
+      "createdAt": "2026-03-01T14:48:49.675Z"
+    },
+    {
+      "id": "13afd732-5ba6-45f7-82d7-301205c63ed2",
+      "email": "dr.allen@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. Susan Allen",
+      "specialty": "Orthopedics",
+      "createdAt": "2026-03-01T14:48:49.678Z"
+    },
+    {
+      "id": "cd305546-9f16-4516-ab18-87945265c31c",
+      "email": "dr.jones@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. David Jones",
+      "specialty": "Dermatology",
+      "createdAt": "2026-03-01T14:48:49.683Z"
+    },
+    {
+      "id": "147fd2a3-47dd-4848-8c3f-e92995ed4a00",
+      "email": "dr.young@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. Margaret Young",
+      "specialty": "Dermatology",
+      "createdAt": "2026-03-01T14:48:49.685Z"
+    },
+    {
+      "id": "eb83b6cf-6660-47bc-affb-e9f33617ee02",
+      "email": "dr.king@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. Christopher King",
+      "specialty": "Dermatology",
+      "createdAt": "2026-03-01T14:48:49.688Z"
+    },
+    {
+      "id": "02b22b79-0bd4-4c24-be1f-193615c7b8eb",
+      "email": "dr.wilson@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. James Wilson",
+      "specialty": "General Practice",
+      "createdAt": "2026-03-01T14:48:49.690Z"
+    },
+    {
+      "id": "a550e17f-8ab5-4166-945e-7b0891ff3da7",
+      "email": "dr.martin@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. Nancy Martin",
+      "specialty": "General Practice",
+      "createdAt": "2026-03-01T14:48:49.692Z"
+    },
+    {
+      "id": "e21d3ca0-d2f7-4fe9-bd98-26106879f7df",
+      "email": "dr.garcia@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. Maria Garcia",
+      "specialty": "General Practice",
+      "createdAt": "2026-03-01T14:48:49.695Z"
+    },
+    {
+      "id": "9a92e107-83a0-4d0a-8558-f05ea8e45cf3",
+      "email": "dr.lee@hospital.com",
+      "passwordHash": "$2a$10$NvTH4TUEV/0/.3x0Irw27ORavc1iKept5CyDuCZa.OlIWQ1Ew1Pz2",
+      "role": "medecin",
+      "name": "Dr. Lisa Lee",
+      "specialty": "General Practice",
+      "createdAt": "2026-03-01T14:48:49.697Z"
+    }
+  ],
+  "patients": [
+    {
+      "id": "0bcbc276-32e5-42e6-bc37-da912b4c1f63",
+      "firstName": "seif",
+      "lastName": "gaaloul",
+      "dateOfBirth": "2003-02-20",
+      "phone": "222222",
+      "email": "22222",
+      "notes": "",
+      "createdAt": "2026-03-01T15:03:43.546Z",
+      "updatedAt": "2026-03-01T15:03:43.546Z"
+    }
+  ],
+  "appointments": []
+}

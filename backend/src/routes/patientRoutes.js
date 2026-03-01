@@ -1,6 +1,6 @@
 import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import { db } from '../dataStore.js';
+import { db, saveDatabase } from '../dataStore.js';
 import { authenticate } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -13,25 +13,34 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const { firstName, lastName, dateOfBirth, phone, email, notes } = req.body;
-  if (!firstName || !lastName) {
-    return res.status(400).json({ message: 'Nom et prénom requis' });
+  try {
+    const { firstName, lastName, dateOfBirth, phone, email, notes } = req.body;
+    
+    console.log('Creating patient:', { firstName, lastName, dateOfBirth, phone, email });
+    
+    if (!firstName || !lastName) {
+      return res.status(400).json({ message: 'Nom et prénom requis' });
+    }
+
+    const newPatient = {
+      id: uuidv4(),
+      firstName,
+      lastName,
+      dateOfBirth: dateOfBirth || null,
+      phone: phone || null,
+      email: email || null,
+      notes: notes || '',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    db.patients.push(newPatient);
+    console.log('Patient created successfully:', newPatient.id);
+    return res.status(201).json(newPatient);
+  } catch (error) {
+    console.error('Error creating patient:', error);
+    return res.status(500).json({ message: 'Erreur serveur lors de la création du patient' });
   }
-
-  const newPatient = {
-    id: uuidv4(),
-    firstName,
-    lastName,
-    dateOfBirth: dateOfBirth || null,
-    phone: phone || null,
-    email: email || null,
-    notes: notes || '',
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
-  };
-
-  db.patients.push(newPatient);
-  return res.status(201).json(newPatient);
 });
 
 router.get('/:id', (req, res) => {
@@ -58,6 +67,7 @@ router.put('/:id', (req, res) => {
   if (notes !== undefined) patient.notes = notes;
   patient.updatedAt = new Date().toISOString();
 
+  saveDatabase();
   return res.json(patient);
 });
 

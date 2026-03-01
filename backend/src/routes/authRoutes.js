@@ -74,4 +74,17 @@ router.post('/users', authenticate, authorize('admin'), (req, res) => {
   });
 });
 
+// Get all doctors (public or authenticated route)
+router.get('/doctors', (req, res) => {
+  const doctors = db.users.filter((u) => u.role === 'medecin');
+  const doctorList = doctors.map(doc => ({
+    id: doc.id,
+    email: doc.email,
+    name: doc.name,
+    specialty: doc.specialty,
+    createdAt: doc.createdAt
+  }));
+  return res.json(doctorList);
+});
+
 export default router;
