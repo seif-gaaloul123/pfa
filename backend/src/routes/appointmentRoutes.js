@@ -5,14 +5,8 @@ import { authenticate } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.use(authenticate);
-
-router.get('/', (req, res) => {
-  return res.json(db.appointments);
-});
-
-router.post('/', (req, res) => {
-  const { patientId, doctorId, date, notes } = req.body;
+function createAppointment(req, res) {
+  const { patientId, doctorId, date, notes, status } = req.body;
   if (!patientId || !doctorId || !date) {
     return res.status(400).json({ message: 'patientId, doctorId et date requis' });
   }
@@ -27,20 +21,23 @@ router.post('/', (req, res) => {
     return res.status(400).json({ message: 'Médecin introuvable' });
   }
 
-  // Check if the doctor already has an appointment at this exact time
   const conflictingAppointment = db.appointments.find(
     (a) => a.doctorId === doctorId && a.date === date
   );
-  
+
   if (conflictingAppointment) {
     const conflictingPatient = db.patients.find((p) => p.id === conflictingAppointment.patientId);
-    const patientName = conflictingPatient 
-      ? `${conflictingPatient.firstName} ${conflictingPatient.lastName}` 
+    const patientName = conflictingPatient
+      ? `${conflictingPatient.firstName} ${conflictingPatient.lastName}`
       : 'un autre patient';
-    return res.status(409).json({ 
-      message: `Ce médecin a déjà un rendez-vous avec ${patientName} à cette date et heure. Veuillez choisir un autre créneau.` 
+    return res.status(409).json({
+      message: `Ce médecin a déjà un rendez-vous avec ${patientName} à cette date et heure. Veuillez choisir un autre créneau.`
     });
   }
+
+  const allowedStatus = ['waiting', 'in-consultation', 'finished'];
+  const initialStatus =
+    status && allowedStatus.includes(status) ? status : 'waiting';
 
   const newAppointment = {
     id: uuidv4(),
@@ -48,6 +45,7 @@ router.post('/', (req, res) => {
     doctorId,
     date,
     notes: notes || '',
+    status: initialStatus,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   };
@@ -55,7 +53,34 @@ router.post('/', (req, res) => {
   db.appointments.push(newAppointment);
   console.log('Appointment created successfully:', newAppointment.id);
   return res.status(201).json(newAppointment);
+}
+
+/** Créneaux déjà réservés pour un médecin et un jour (YYYY-MM-DD) — sans auth */
+router.get('/slots', (req, res) => {
+  const { doctorId, day } = req.query;
+  if (!doctorId || !day) {
+    return res.status(400).json({ message: 'doctorId et day (YYYY-MM-DD) requis' });
+  }
+  const booked = db.appointments
+    .filter((a) => a.doctorId === doctorId && String(a.date).startsWith(day))
+    .map((a) => a.date);
+  return res.json(booked);
 });
+
+/** Prise de RDV depuis le portail patient (sans JWT) */
+router.post('/book', createAppointment);
+
+router.use(authenticate);
+
+router.get('/', (req, res) => {
+  const list = db.appointments.map((a) => ({
+    ...a,
+    status: a.status || 'waiting'
+  }));
+  return res.json(list);
+});
+
+router.post('/', createAppointment);
 
 router.put('/:id', (req, res) => {
   const appointment = db.appointments.find((a) => a.id === req.params.id);
@@ -63,7 +88,8 @@ router.put('/:id', (req, res) => {
     return res.status(404).json({ message: 'Rendez-vous non trouvé' });
   }
 
-  const { patientId, doctorId, date, notes } = req.body;
+  const { patientId, doctorId, date, notes, status } = req.body;
+  const allowedStatus = ['waiting', 'in-consultation', 'finished'];
 
   if (patientId !== undefined) {
     const patient = db.patients.find((p) => p.id === patientId);
@@ -81,29 +107,33 @@ router.put('/:id', (req, res) => {
     appointment.doctorId = doctorId;
   }
 
-  // If date or doctorId is being changed, check for conflicts
   if (date !== undefined || doctorId !== undefined) {
     const newDate = date !== undefined ? date : appointment.date;
     const newDoctorId = doctorId !== undefined ? doctorId : appointment.doctorId;
-    
-    // Check if another appointment exists for this doctor at this time (excluding current appointment)
+
     const conflictingAppointment = db.appointments.find(
       (a) => a.id !== req.params.id && a.doctorId === newDoctorId && a.date === newDate
     );
-    
+
     if (conflictingAppointment) {
       const conflictingPatient = db.patients.find((p) => p.id === conflictingAppointment.patientId);
-      const patientName = conflictingPatient 
-        ? `${conflictingPatient.firstName} ${conflictingPatient.lastName}` 
+      const patientName = conflictingPatient
+        ? `${conflictingPatient.firstName} ${conflictingPatient.lastName}`
         : 'un autre patient';
-      return res.status(409).json({ 
-        message: `Ce médecin a déjà un rendez-vous avec ${patientName} à cette date et heure. Veuillez choisir un autre créneau.` 
+      return res.status(409).json({
+        message: `Ce médecin a déjà un rendez-vous avec ${patientName} à cette date et heure. Veuillez choisir un autre créneau.`
       });
     }
   }
 
   if (date !== undefined) appointment.date = date;
   if (notes !== undefined) appointment.notes = notes;
+  if (status !== undefined) {
+    if (!allowedStatus.includes(status)) {
+      return res.status(400).json({ message: 'Statut invalide' });
+    }
+    appointment.status = status;
+  }
   appointment.updatedAt = new Date().toISOString();
 
   saveDatabase();

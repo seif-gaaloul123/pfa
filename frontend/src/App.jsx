@@ -1,80 +1,47 @@
 import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
-import PrivateRoute from './components/PrivateRoute';
-import { useAuth } from './AuthContext';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { DoctorRoute } from './components/RoleRoute';
+import DoctorLayout from './components/DoctorLayout';
+import PatientLayout from './components/PatientLayout';
+
+import WelcomePage from './pages/WelcomePage';
 import LoginPage from './pages/LoginPage';
-import DashboardPage from './pages/DashboardPage';
-import PatientsPage from './pages/PatientsPage';
-import AppointmentsPage from './pages/AppointmentsPage';
-import FileUploadPage from './pages/FileUploadPage';
+import RegisterPage from './pages/RegisterPage';
+import BookPage from './pages/BookPage';
+
+import DoctorDashboardPage from './pages/DoctorDashboardPage';
+import DoctorPatientsPage from './pages/DoctorPatientsPage';
+import PatientHistoryPage from './pages/PatientHistoryPage';
+import WaitingRoomPage from './pages/WaitingRoomPage';
+import FilesVaultPage from './pages/FilesVaultPage';
 
 export default function App() {
-  const { user, logout } = useAuth();
-
   return (
-    <div className="app-container">
-      <header className="app-header">
-        <h1>Medical CRM</h1>
-        <div className="header-right">
-          {user && (
-            <>
-              <span>{user.email} ({user.role})</span>
-              <button onClick={logout}>Déconnexion</button>
-            </>
-          )}
-        </div>
-      </header>
+    <Routes>
+      <Route path="/" element={<Navigate to="/welcome" replace />} />
+      <Route path="/welcome" element={<WelcomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
 
-      <div className="app-body">
-        {user && (
-          <nav className="sidebar">
-            <ul>
-              <li><Link to="/">Dashboard</Link></li>
-              <li><Link to="/patients">Patients</Link></li>
-              <li><Link to="/appointments">Rendez-vous</Link></li>
-              <li><Link to="/upload">Upload fichiers</Link></li>
-            </ul>
-          </nav>
-        )}
+      <Route path="/book" element={<PatientLayout />}>
+        <Route index element={<BookPage />} />
+      </Route>
 
-        <main className="main-content">
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route
-              path="/"
-              element={
-                <PrivateRoute>
-                  <DashboardPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/patients"
-              element={
-                <PrivateRoute>
-                  <PatientsPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/appointments"
-              element={
-                <PrivateRoute>
-                  <AppointmentsPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/upload"
-              element={
-                <PrivateRoute>
-                  <FileUploadPage />
-                </PrivateRoute>
-              }
-            />
-          </Routes>
-        </main>
-      </div>
-    </div>
+      <Route
+        element={
+          <DoctorRoute>
+            <DoctorLayout />
+          </DoctorRoute>
+        }
+      >
+        <Route path="/dashboard" element={<DoctorDashboardPage />} />
+        <Route path="/patients" element={<DoctorPatientsPage />} />
+        <Route path="/patient/:id/history" element={<PatientHistoryPage />} />
+        <Route path="/waiting-room" element={<WaitingRoomPage />} />
+        <Route path="/files" element={<FilesVaultPage />} />
+      </Route>
+
+      <Route path="*" element={<Navigate to="/welcome" replace />} />
+    </Routes>
   );
 }

@@ -195,6 +195,60 @@
       "name": "Dr. Lisa Lee",
       "specialty": "General Practice",
       "createdAt": "2026-03-01T14:48:49.697Z"
+    },
+    {
+      "id": "af50b3f4-02e3-4140-b1cc-10c75cdad171",
+      "email": "dr.anis.belhaj@clinique.tn",
+      "passwordHash": "$2a$10$iO85AYHMqG8YcJa4rUkLJea5aqu8tkawcXolt7D1tKethLwNzv2j6",
+      "role": "medecin",
+      "name": "Dr. Anis Belhaj",
+      "specialty": "Médecine générale",
+      "createdAt": "2026-04-05T15:02:52.309Z"
+    },
+    {
+      "id": "80ed88ae-105d-43d4-a3d2-e0fcf16d3a06",
+      "email": "dr.selima.bouzidi@clinique.tn",
+      "passwordHash": "$2a$10$iO85AYHMqG8YcJa4rUkLJea5aqu8tkawcXolt7D1tKethLwNzv2j6",
+      "role": "medecin",
+      "name": "Dr. Selima Bouzidi",
+      "specialty": "Cardiologie",
+      "createdAt": "2026-04-05T15:02:52.313Z"
+    },
+    {
+      "id": "466a2aaf-cbd6-46ab-a1d0-be61becccb7e",
+      "email": "dr.omar.trabelsi@clinique.tn",
+      "passwordHash": "$2a$10$iO85AYHMqG8YcJa4rUkLJea5aqu8tkawcXolt7D1tKethLwNzv2j6",
+      "role": "medecin",
+      "name": "Dr. Omar Trabelsi",
+      "specialty": "Pédiatrie",
+      "createdAt": "2026-04-05T15:02:52.314Z"
+    },
+    {
+      "id": "b3e831fd-ea6d-4dcf-b2d3-29906c05f099",
+      "email": "dr.amel.sassi@clinique.tn",
+      "passwordHash": "$2a$10$iO85AYHMqG8YcJa4rUkLJea5aqu8tkawcXolt7D1tKethLwNzv2j6",
+      "role": "medecin",
+      "name": "Dr. Amel Sassi",
+      "specialty": "Dermatologie",
+      "createdAt": "2026-04-05T15:02:52.315Z"
+    },
+    {
+      "id": "5a9ea5f3-5c24-49c7-9bc8-ff98eca85098",
+      "email": "dr.khaled.mansour@clinique.tn",
+      "passwordHash": "$2a$10$iO85AYHMqG8YcJa4rUkLJea5aqu8tkawcXolt7D1tKethLwNzv2j6",
+      "role": "medecin",
+      "name": "Dr. Khaled Mansour",
+      "specialty": "Rhumatologie",
+      "createdAt": "2026-04-05T15:02:52.316Z"
+    },
+    {
+      "id": "ac942ff4-a82e-4ba7-bdd4-36c27d7ca166",
+      "email": "dr.nizar.bensalah@clinique.tn",
+      "passwordHash": "$2a$10$.46sWHo5iBYjk3mWlc.5be5OOCIAc4CO11Dqe4bQDci7ZtoDr8AVC",
+      "role": "medecin",
+      "name": "Dr. Nizar Ben Salah",
+      "specialty": "Rhumatologie",
+      "createdAt": "2026-04-05T15:03:01.768Z"
     }
   ],
   "patients": [
@@ -208,7 +262,214 @@
       "notes": "",
       "createdAt": "2026-03-01T15:03:43.546Z",
       "updatedAt": "2026-03-01T15:03:43.546Z"
+    },
+    {
+      "id": "b528eba0-b359-4df8-94f3-cb93dd54b5dd",
+      "firstName": "seif",
+      "lastName": "gaaloul",
+      "dateOfBirth": null,
+      "phone": "92263016",
+      "email": "seifgaaloul789@gmail.com",
+      "allergies": "",
+      "notes": "",
+      "createdAt": "2026-04-05T14:14:33.008Z",
+      "updatedAt": "2026-04-05T14:14:33.008Z"
+    },
+    {
+      "id": "e163b8a1-a465-44a5-bcc2-17a964ef1e99",
+      "firstName": "baids",
+      "lastName": "ben aballh",
+      "dateOfBirth": "2005-06-05",
+      "phone": "51515151",
+      "email": "gaaloul.seif@yahoo.fr",
+      "allergies": "",
+      "notes": "",
+      "createdAt": "2026-04-05T14:19:34.085Z",
+      "updatedAt": "2026-04-05T14:19:34.085Z"
+    },
+    {
+      "id": "67a379dc-5a03-4ab6-b1ce-ea9841033b5f",
+      "firstName": "hammadi",
+      "lastName": "gaaloul",
+      "dateOfBirth": null,
+      "phone": "8899595",
+      "email": "eflppef@gmail.com",
+      "allergies": "latex",
+      "notes": "Allergies: latex",
+      "createdAt": "2026-04-05T14:36:57.530Z",
+      "updatedAt": "2026-04-05T14:36:57.530Z"
+    },
+    {
+      "id": "ef5772ef-2ce8-4fa6-8983-f0c894284513",
+      "firstName": "ahmed",
+      "lastName": "ahmed",
+      "dateOfBirth": "2006-02-20",
+      "phone": "848484",
+      "email": "eflppef@gmail.com",
+      "allergies": "",
+      "notes": "",
+      "createdAt": "2026-04-05T14:38:13.533Z",
+      "updatedAt": "2026-04-05T14:38:13.533Z"
+    },
+    {
+      "id": "45ea5408-3551-40ff-962c-4cc6bfa99d5d",
+      "firstName": "kmar",
+      "lastName": "kmar",
+      "dateOfBirth": "2026-04-07",
+      "phone": "222222",
+      "email": "eflppef@gmail.com",
+      "allergies": "",
+      "notes": "",
+      "createdAt": "2026-04-05T14:39:38.403Z",
+      "updatedAt": "2026-04-05T14:39:38.403Z"
+    },
+    {
+      "id": "7b2eeeaa-bb57-4597-9dc3-fb0181390e7b",
+      "firstName": "Khaled",
+      "lastName": "Al-Fessi",
+      "dateOfBirth": "1985-03-12",
+      "email": "khaled.alfessi@patient.tn",
+      "phone": "+216 98 123 456",
+      "allergies": "Pénicilline",
+      "notes": "",
+      "createdAt": "2026-04-05T15:02:52.319Z",
+      "updatedAt": "2026-04-05T15:02:52.319Z"
+    },
+    {
+      "id": "6464c698-31c9-435f-8b49-d6a252ffe14a",
+      "firstName": "Yassine",
+      "lastName": "Mansour",
+      "dateOfBirth": "1992-07-21",
+      "email": "yassine.mansour@patient.tn",
+      "phone": "+216 22 987 654",
+      "allergies": "",
+      "notes": "",
+      "createdAt": "2026-04-05T15:02:52.320Z",
+      "updatedAt": "2026-04-05T15:02:52.320Z"
+    },
+    {
+      "id": "d7c20e45-dc85-44f8-b582-4c95100d1a06",
+      "firstName": "Fatma",
+      "lastName": "Hadded",
+      "dateOfBirth": "1978-11-05",
+      "email": "fatma.hadded@patient.tn",
+      "phone": "+216 55 111 222",
+      "allergies": "",
+      "notes": "",
+      "createdAt": "2026-04-05T15:02:52.322Z",
+      "updatedAt": "2026-04-05T15:02:52.322Z"
     }
   ],
-  "appointments": []
+  "appointments": [
+    {
+      "id": "4e7f1fed-3907-4ce1-a2de-887e488f8660",
+      "patientId": "b528eba0-b359-4df8-94f3-cb93dd54b5dd",
+      "doctorId": "c10ce79c-dbbe-4f58-917d-7beda1115411",
+      "date": "2026-04-19T08:00",
+      "notes": "",
+      "status": "waiting",
+      "createdAt": "2026-04-05T14:15:30.713Z",
+      "updatedAt": "2026-04-05T14:15:30.713Z"
+    },
+    {
+      "id": "4478ba1b-d4f1-4065-b21e-bf17128f1eb8",
+      "patientId": "e163b8a1-a465-44a5-bcc2-17a964ef1e99",
+      "doctorId": "630db4c6-fb92-4257-9cc5-7940f88c9f5e",
+      "date": "2026-04-19T12:00",
+      "notes": "",
+      "status": "waiting",
+      "createdAt": "2026-04-05T14:20:13.225Z",
+      "updatedAt": "2026-04-05T14:20:13.225Z"
+    },
+    {
+      "id": "b8752590-b59d-4af8-9b62-aacfb7a54b38",
+      "patientId": "e163b8a1-a465-44a5-bcc2-17a964ef1e99",
+      "doctorId": "630db4c6-fb92-4257-9cc5-7940f88c9f5e",
+      "date": "2026-04-18T14:00",
+      "notes": "",
+      "status": "waiting",
+      "createdAt": "2026-04-05T14:20:41.983Z",
+      "updatedAt": "2026-04-05T14:20:41.984Z"
+    },
+    {
+      "id": "3f47f168-95f2-4a10-a4c8-be70b734ffbe",
+      "patientId": "67a379dc-5a03-4ab6-b1ce-ea9841033b5f",
+      "doctorId": "13afd732-5ba6-45f7-82d7-301205c63ed2",
+      "date": "2026-04-15T09:00",
+      "notes": "",
+      "status": "waiting",
+      "createdAt": "2026-04-05T14:37:14.744Z",
+      "updatedAt": "2026-04-05T14:37:14.744Z"
+    },
+    {
+      "id": "4f5d475d-212e-4c47-b6d5-eea5dec6826b",
+      "patientId": "ef5772ef-2ce8-4fa6-8983-f0c894284513",
+      "doctorId": "966e423b-cd07-48eb-9f2a-16917f43ccb8",
+      "date": "2026-04-06T09:00",
+      "notes": "",
+      "status": "waiting",
+      "createdAt": "2026-04-05T14:38:32.403Z",
+      "updatedAt": "2026-04-05T14:38:32.403Z"
+    },
+    {
+      "id": "cb46cdba-489c-40a1-940f-743f7476d8df",
+      "patientId": "45ea5408-3551-40ff-962c-4cc6bfa99d5d",
+      "doctorId": "c10ce79c-dbbe-4f58-917d-7beda1115411",
+      "date": "2026-04-07T08:00",
+      "notes": "",
+      "status": "waiting",
+      "createdAt": "2026-04-05T14:39:55.724Z",
+      "updatedAt": "2026-04-05T14:39:55.724Z"
+    },
+    {
+      "id": "2b45d53d-97af-4e54-9d78-b4c862a24725",
+      "patientId": "7b2eeeaa-bb57-4597-9dc3-fb0181390e7b",
+      "doctorId": "af50b3f4-02e3-4140-b1cc-10c75cdad171",
+      "date": "2026-03-22T08:00",
+      "status": "finished",
+      "notes": "[Démo MedERP Tunis] Consultation : tension artérielle stable. Conseils hygiène de vie et activité physique modérée.",
+      "createdAt": "2026-04-05T15:02:52.324Z",
+      "updatedAt": "2026-04-05T15:02:52.324Z"
+    },
+    {
+      "id": "a9dc6eba-b7bd-4ad6-81c7-85268ea467cf",
+      "patientId": "7b2eeeaa-bb57-4597-9dc3-fb0181390e7b",
+      "doctorId": "af50b3f4-02e3-4140-b1cc-10c75cdad171",
+      "date": "2026-03-31T08:00",
+      "status": "finished",
+      "notes": "[Démo MedERP Tunis] Suivi : bilan glycémique à jeun correct. Rappel des signes d’alerte.",
+      "createdAt": "2026-04-05T15:02:52.326Z",
+      "updatedAt": "2026-04-05T15:02:52.326Z"
+    },
+    {
+      "id": "aec04fd2-4f07-4daf-86ec-48fcfc0ed9f4",
+      "patientId": "7b2eeeaa-bb57-4597-9dc3-fb0181390e7b",
+      "doctorId": "af50b3f4-02e3-4140-b1cc-10c75cdad171",
+      "date": "2026-04-05T09:00",
+      "status": "in-consultation",
+      "notes": "[Démo MedERP Tunis] Consultation en cours : examen clinique abdominal, ordonnance en cours d’édition.",
+      "createdAt": "2026-04-05T15:02:52.328Z",
+      "updatedAt": "2026-04-05T15:02:52.328Z"
+    },
+    {
+      "id": "b7977046-af8c-4307-85d5-90e409dac9d9",
+      "patientId": "6464c698-31c9-435f-8b49-d6a252ffe14a",
+      "doctorId": "af50b3f4-02e3-4140-b1cc-10c75cdad171",
+      "date": "2026-04-06T08:00",
+      "status": "waiting",
+      "notes": "[Démo MedERP Tunis] Rendez-vous programmé : première visite — motif douleurs articulaires.",
+      "createdAt": "2026-04-05T15:02:52.331Z",
+      "updatedAt": "2026-04-05T15:02:52.331Z"
+    },
+    {
+      "id": "edd6ee03-6bc8-4403-8ea8-240dbb7051fb",
+      "patientId": "d7c20e45-dc85-44f8-b582-4c95100d1a06",
+      "doctorId": "af50b3f4-02e3-4140-b1cc-10c75cdad171",
+      "date": "2026-03-31T13:00",
+      "status": "finished",
+      "notes": "[Démo MedERP Tunis] Visite de contrôle post-opératoire — cicatrisation satisfaisante.",
+      "createdAt": "2026-04-05T15:02:52.334Z",
+      "updatedAt": "2026-04-05T15:02:52.334Z"
+    }
+  ]
 }

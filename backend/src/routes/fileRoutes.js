@@ -9,7 +9,6 @@ import { config } from '../config.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// S’assurer que le dossier existe
 if (!fs.existsSync(config.uploadDir)) {
   fs.mkdirSync(config.uploadDir, { recursive: true });
 }
@@ -31,20 +30,52 @@ const router = express.Router();
 
 router.use(authenticate);
 
+router.get('/', (req, res) => {
+  try {
+    if (!fs.existsSync(config.uploadDir)) {
+      return res.json([]);
+    }
+    const names = fs.readdirSync(config.uploadDir);
+    const files = names
+      .map((name) => {
+        const full = path.join(config.uploadDir, name);
+        let stat;
+        try {
+          stat = fs.statSync(full);
+        } catch {
+          return null;
+        }
+        if (!stat.isFile()) return null;
+        return {
+          storedName: name,
+          originalName: name.replace(/^\d+_/, ''),
+          size: stat.size,
+          updatedAt: stat.mtime.toISOString()
+        };
+      })
+      .filter(Boolean)
+      .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+
+    return res.json(files);
+  } catch (err) {
+    console.error('List files error:', err);
+    return res.status(500).json({ message: 'Impossible de lister les fichiers' });
+  }
+});
+
 router.post('/upload', upload.single('file'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: 'Aucun fichier reçu' });
   }
 
-  // On retourne juste les infos de base, stockage cloud à gérer plus tard
   return res.status(201).json({
     message: 'Fichier reçu et stocké temporairement',
     file: {
       originalName: req.file.originalname,
       storedName: req.file.filename,
-      path: req.file.path,
       mimeType: req.file.mimetype,
-      size: req.file.size
+      size: req.file.size,
+      updatedAt: new Date().toISOString()
     }
   });
 });
