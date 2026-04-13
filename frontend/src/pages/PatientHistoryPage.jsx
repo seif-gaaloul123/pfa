@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import api from '../api';
+import { useAuth } from '../AuthContext';
 
 const STATUS_LABEL = {
   waiting: 'En attente',
@@ -15,6 +16,7 @@ function formatConsultationNote(text) {
 
 export default function PatientHistoryPage() {
   const { id } = useParams();
+  const { user, userRole } = useAuth();
   const [patient, setPatient] = useState(null);
   const [appointments, setAppointments] = useState([]);
   const [files, setFiles] = useState([]);
@@ -52,7 +54,7 @@ export default function PatientHistoryPage() {
 
   const doctorName = (doctorId) => {
     const d = doctors.find((x) => x.id === doctorId);
-    return d ? d.name : doctorId;
+    return d?.name || 'Médecin Inconnu';
   };
 
   const formatDt = (dateString) => {
@@ -143,7 +145,9 @@ export default function PatientHistoryPage() {
                     </div>
                     <p className="mt-3 text-sm text-slate-700">
                       <span className="font-semibold text-slate-900">Praticien :</span>{' '}
-                      {doctorName(apt.doctorId)}
+                      {userRole === 'doctor' && apt.status !== 'waiting' && apt.status !== 'finished' 
+                        ? user.name || `Dr. ${user.lastName}` 
+                        : doctorName(apt.doctorId)}
                     </p>
                     {apt.notes && (
                       <div className="mt-4 rounded-xl bg-slate-50 px-4 py-3 text-sm leading-relaxed text-slate-800">

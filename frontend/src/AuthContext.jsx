@@ -42,6 +42,17 @@ export function AuthProvider({ children }) {
     setUser(res.data.user);
   };
 
+  const patientLogin = async (email, password) => {
+    const res = await api.post('/patients/login', { email, password });
+    const patientData = res.data;
+    setPatientSession({
+      patientId: patientData.id,
+      email: patientData.email,
+      firstName: patientData.firstName,
+      lastName: patientData.lastName,
+    });
+  };
+
   /** Session portail patient (sans JWT) après inscription */
   const setPatientSession = (patientProfile) => {
     localStorage.removeItem('token');
@@ -66,7 +77,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, userRole, loading, login, logout, setPatientSession }}
+      value={{ user, userRole, loading, login, patientLogin, logout, setPatientSession }}
     >
       {children}
     </AuthContext.Provider>

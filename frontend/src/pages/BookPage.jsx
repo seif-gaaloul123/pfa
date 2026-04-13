@@ -36,17 +36,19 @@ export default function BookPage() {
     }
     const slots = [];
     const date = new Date(selectedDate);
-    for (let hour = 9; hour < 17; hour++) {
-      const slotTime = new Date(date);
-      slotTime.setHours(hour, 0, 0, 0);
-      const slotString = slotTime.toISOString().slice(0, 16);
-      const isBooked = bookedSlotTimes.includes(slotString);
-      if (slotTime > new Date()) {
-        slots.push({
-          value: slotString,
-          label: `${hour.toString().padStart(2, '0')}:00`,
-          isBooked
-        });
+    for (let hour = 8; hour < 17; hour++) {
+      for (const minute of [0, 30]) {
+        const slotTime = new Date(date);
+        slotTime.setHours(hour, minute, 0, 0);
+        const slotString = slotTime.toISOString().slice(0, 16);
+        const isBooked = bookedSlotTimes.includes(slotString);
+        if (slotTime > new Date()) {
+          slots.push({
+            value: slotString,
+            label: `${hour.toString().padStart(2, '0')}:${minute === 0 ? '00' : '30'}`,
+            isBooked
+          });
+        }
       }
     }
     setAvailableSlots(slots);

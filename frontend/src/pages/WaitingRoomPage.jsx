@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import api from '../api';
+import { useAuth } from '../AuthContext';
 
 const COLUMNS = [
   { id: 'waiting', title: 'En Attente' },
@@ -9,6 +10,7 @@ const COLUMNS = [
 ];
 
 export default function WaitingRoomPage() {
+  const { user } = useAuth();
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState([]);
   const [doctors, setDoctors] = useState([]);
@@ -58,8 +60,12 @@ export default function WaitingRoomPage() {
   };
 
   const grouped = useMemo(() => {
+    const myAppointments = user?.role === 'admin' 
+      ? appointments 
+      : appointments.filter(a => a.doctorId === user?.id);
+
     const g = { waiting: [], 'in-consultation': [], finished: [] };
-    for (const a of appointments) {
+    for (const a of myAppointments) {
       const s = a.status && g[a.status] !== undefined ? a.status : 'waiting';
       g[s].push(a);
     }
@@ -67,7 +73,7 @@ export default function WaitingRoomPage() {
       g[k].sort((x, y) => new Date(x.date) - new Date(y.date));
     }
     return g;
-  }, [appointments]);
+  }, [appointments, user?.id, user?.role]);
 
   const onDragEnd = async (result) => {
     const { destination, source, draggableId } = result;

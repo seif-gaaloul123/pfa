@@ -1,6 +1,6 @@
 import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import { db, saveDatabase } from '../dataStore.js';
+import { db, saveDatabase, autoUpdateStatuses } from '../dataStore.js';
 import { authenticate } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -70,9 +70,23 @@ router.get('/slots', (req, res) => {
 /** Prise de RDV depuis le portail patient (sans JWT) */
 router.post('/book', createAppointment);
 
+/** Récupération des RDV pour un patient spécifique (sans JWT, utile pour portail patient) */
+router.get('/patient/:patientId', (req, res) => {
+  autoUpdateStatuses();
+  const { patientId } = req.params;
+  const list = db.appointments
+    .filter((a) => a.patientId === patientId)
+    .map((a) => ({
+      ...a,
+      status: a.status || 'waiting'
+    }));
+  return res.json(list);
+});
+
 router.use(authenticate);
 
 router.get('/', (req, res) => {
+  autoUpdateStatuses();
   const list = db.appointments.map((a) => ({
     ...a,
     status: a.status || 'waiting'

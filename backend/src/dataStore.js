@@ -114,14 +114,14 @@ export function seedAdminUser() {
   });
 }
 
-/** Médecins — clinique tunisienne (noms locaux uniquement) */
+/** Médecins — clinique tunisienne */
 export function seedDoctors() {
   const doctors = [
-    { email: 'dr.anis.belhaj@clinique.tn', name: 'Dr. Anis Belhaj', specialty: 'Médecine générale' },
-    { email: 'dr.selima.bouzidi@clinique.tn', name: 'Dr. Selima Bouzidi', specialty: 'Cardiologie' },
-    { email: 'dr.omar.trabelsi@clinique.tn', name: 'Dr. Omar Trabelsi', specialty: 'Pédiatrie' },
-    { email: 'dr.amel.sassi@clinique.tn', name: 'Dr. Amel Sassi', specialty: 'Dermatologie' },
-    { email: 'dr.nizar.bensalah@clinique.tn', name: 'Dr. Nizar Ben Salah', specialty: 'Rhumatologie' }
+    { email: 'dr.anis.belhaj@clinique.tn', name: 'Dr. Anis Belhaj', specialty: 'Cardiologue' },
+    { email: 'dr.selima.bouzidi@clinique.tn', name: 'Dr. Selima Bouzidi', specialty: 'Pédiatre' },
+    { email: 'dr.omar.jaziri@clinique.tn', name: 'Dr. Omar Jaziri', specialty: 'Ophtalmologue' },
+    { email: 'dr.myriam.bensalem@clinique.tn', name: 'Dr. Myriam Ben Salem', specialty: 'Gynécologue' },
+    { email: 'dr.walid.hammami@clinique.tn', name: 'Dr. Walid Hammami', specialty: 'Orthopédiste' }
   ];
 
   const defaultPassword = 'doctor123';
@@ -131,7 +131,7 @@ export function seedDoctors() {
     const existing = db.users.find((u) => u.email.toLowerCase() === doctor.email.toLowerCase());
     if (!existing) {
       db.users.push({
-        id: uuidv4(),
+        id: `doc_${doctor.name.split(' ')[1].toLowerCase()}`,
         email: doctor.email,
         passwordHash,
         role: 'medecin',
@@ -149,38 +149,103 @@ function isoLocalSlice(date, hour) {
   return d.toISOString().slice(0, 16);
 }
 
+export function autoUpdateStatuses() {
+  const currentMoment = new Date(); // Represents now (e.g. 13 April 2026)
+  const todayDateString = '2026-04-13';
+  let changed = false;
+  
+  for (let a of db.appointments) {
+    if (!a.date) continue;
+    const aptDate = new Date(a.date);
+    const aptDateStr = a.date.slice(0, 10);
+    
+    if (aptDateStr < todayDateString) {
+      if (a.status !== 'finished') {
+         a.status = 'finished';
+         changed = true;
+      }
+    } else if (aptDateStr === todayDateString) {
+      if (aptDate <= currentMoment) {
+        if (a.status !== 'in-consultation' && a.status !== 'finished') {
+          a.status = 'in-consultation';
+          changed = true;
+        }
+      } else {
+        if (a.status !== 'waiting' && a.status !== 'finished') {
+          a.status = 'waiting';
+          changed = true;
+        }
+      }
+    }
+  }
+  if (changed) saveDatabase();
+}
+
 /** Patients et rendez-vous de démonstration (noms tunisiens) */
 export function seedTunisianDemo() {
   const anis = db.users.find((u) => u.email?.toLowerCase() === 'dr.anis.belhaj@clinique.tn');
-  if (!anis) return;
+  const selima = db.users.find((u) => u.email?.toLowerCase() === 'dr.selima.bouzidi@clinique.tn');
+  const walid = db.users.find((u) => u.email?.toLowerCase() === 'dr.walid.hammami@clinique.tn');
+  if (!anis || !selima || !walid) return;
+
+  const defaultPassword = 'patient123';
+  const passwordHash = bcrypt.hashSync(defaultPassword, 10);
 
   const demoPatients = [
     {
       firstName: 'Khaled',
-      lastName: 'Al-Fessi',
+      lastName: 'Alfessi',
       dateOfBirth: '1985-03-12',
       email: 'khaled.alfessi@patient.tn',
-      phone: '+216 98 123 456',
+      phone: '98123456',
+      allergies: '',
+      notes: '',
+      bloodType: 'O+',
+      passwordHash
+    },
+    {
+      firstName: 'Amira',
+      lastName: 'Dridi',
+      dateOfBirth: '1990-06-18',
+      email: 'amira.dridi@patient.tn',
+      phone: '55234567',
       allergies: 'Pénicilline',
-      notes: ''
+      notes: '',
+      bloodType: 'A-',
+      passwordHash
     },
     {
-      firstName: 'Yassine',
-      lastName: 'Mansour',
-      dateOfBirth: '1992-07-21',
-      email: 'yassine.mansour@patient.tn',
-      phone: '+216 22 987 654',
+      firstName: 'Youssef',
+      lastName: 'Ennaifer',
+      dateOfBirth: '1988-11-03',
+      email: 'youssef.ennaifer@patient.tn',
+      phone: '22345678',
       allergies: '',
-      notes: ''
+      notes: '',
+      bloodType: 'B+',
+      passwordHash
     },
     {
-      firstName: 'Fatma',
-      lastName: 'Hadded',
-      dateOfBirth: '1978-11-05',
-      email: 'fatma.hadded@patient.tn',
-      phone: '+216 55 111 222',
-      allergies: '',
-      notes: ''
+      firstName: 'Meriem',
+      lastName: 'Toumi',
+      dateOfBirth: '1995-02-25',
+      email: 'meriem.toumi@patient.tn',
+      phone: '99456789',
+      allergies: 'Latex',
+      notes: '',
+      bloodType: 'AB+',
+      passwordHash
+    },
+    {
+      firstName: 'Sami',
+      lastName: 'Ben Amor',
+      dateOfBirth: '1982-09-14',
+      email: 'sami.benamor@patient.tn',
+      phone: '23567890',
+      allergies: 'Asthmatique',
+      notes: '',
+      bloodType: 'O-',
+      passwordHash
     }
   ];
 
@@ -203,10 +268,12 @@ export function seedTunisianDemo() {
     patientByKey[`${row.firstName}_${row.lastName}`] = p;
   }
 
-  const khaled = patientByKey['Khaled_Al-Fessi'];
-  const yassine = patientByKey['Yassine_Mansour'];
-  const fatma = patientByKey['Fatma_Hadded'];
-  if (!khaled || !yassine || !fatma) return;
+  const khaled = patientByKey['Khaled_Alfessi'];
+  const amira = patientByKey['Amira_Dridi'];
+  const youssef = patientByKey['Youssef_Ennaifer'];
+  const meriem = patientByKey['Meriem_Toumi'];
+  const sami = patientByKey['Sami_Ben Amor'];
+  if (!khaled) return;
 
   const alreadyDemo = db.appointments.some(
     (a) => a.notes && String(a.notes).includes('[Démo MedERP Tunis]')
@@ -221,11 +288,11 @@ export function seedTunisianDemo() {
   const twoWeeksAgo = new Date(now);
   twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
 
-  const addApt = (patientId, dateIso, status, notes) => {
+  const addApt = (patientId, doctorId, dateIso, status, notes) => {
     db.appointments.push({
       id: uuidv4(),
       patientId,
-      doctorId: anis.id,
+      doctorId,
       date: dateIso,
       status,
       notes,
@@ -234,36 +301,70 @@ export function seedTunisianDemo() {
     });
   };
 
+  // Khaled — 3 RDV (historique + en cours) chez Walid
   addApt(
     khaled.id,
+    walid.id,
     isoLocalSlice(twoWeeksAgo, 9),
     'finished',
     '[Démo MedERP Tunis] Consultation : tension artérielle stable. Conseils hygiène de vie et activité physique modérée.'
   );
   addApt(
     khaled.id,
+    walid.id,
     isoLocalSlice(lastWeek, 10),
     'finished',
-    '[Démo MedERP Tunis] Suivi : bilan glycémique à jeun correct. Rappel des signes d’alerte.'
+    '[Démo MedERP Tunis] Suivi : bilan glycémique à jeun correct. Rappel des signes d\'alerte.'
   );
   addApt(
     khaled.id,
+    walid.id,
     isoLocalSlice(now, 11),
     'in-consultation',
-    '[Démo MedERP Tunis] Consultation en cours : examen clinique abdominal, ordonnance en cours d’édition.'
+    '[Démo MedERP Tunis] Consultation en cours : examen clinique abdominal, ordonnance en cours d\'édition.'
   );
 
-  addApt(
-    yassine.id,
-    isoLocalSlice(tomorrow, 10),
-    'waiting',
-    '[Démo MedERP Tunis] Rendez-vous programmé : première visite — motif douleurs articulaires.'
-  );
+  // Amira — RDV demain chez Selima (Pédiatre)
+  if (amira) {
+    addApt(
+      amira.id,
+      selima.id,
+      isoLocalSlice(tomorrow, 10),
+      'waiting',
+      '[Démo MedERP Tunis] Rendez-vous programmé : contrôle pédiatrique enfant.'
+    );
+  }
 
-  addApt(
-    fatma.id,
-    isoLocalSlice(lastWeek, 15),
-    'finished',
-    '[Démo MedERP Tunis] Visite de contrôle post-opératoire — cicatrisation satisfaisante.'
-  );
+  // Youssef — RDV la semaine dernière (terminé) chez Anis
+  if (youssef) {
+    addApt(
+      youssef.id,
+      anis.id,
+      isoLocalSlice(lastWeek, 14),
+      'finished',
+      '[Démo MedERP Tunis] Consultation ophtalmologique — bilan de vision complet.'
+    );
+  }
+
+  // Meriem — RDV demain chez Selima
+  if (meriem) {
+    addApt(
+      meriem.id,
+      selima.id,
+      isoLocalSlice(tomorrow, 14),
+      'waiting',
+      '[Démo MedERP Tunis] Rendez-vous programmé : suivi gynécologique trimestriel.'
+    );
+  }
+
+  // Sami — RDV passé chez Selima
+  if (sami) {
+    addApt(
+      sami.id,
+      selima.id,
+      isoLocalSlice(lastWeek, 15),
+      'finished',
+      '[Démo MedERP Tunis] Visite de contrôle post-opératoire — rééducation en cours.'
+    );
+  }
 }

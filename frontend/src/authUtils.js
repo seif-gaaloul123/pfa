@@ -21,7 +21,6 @@ export function getStaffDisplayName(user) {
   const n = user.name && String(user.name).trim();
   if (n) return n;
   const em = (user.email || '').toLowerCase();
-  if (em.includes('anis.belhaj')) return 'Dr. Anis Belhaj';
-  if (em.includes('selima.bouzidi')) return 'Dr. Selima Bouzidi';
+
   return user.email || 'Personnel médical';
 }

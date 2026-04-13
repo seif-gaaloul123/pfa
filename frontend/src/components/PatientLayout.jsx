@@ -1,6 +1,15 @@
 import React from 'react';
-import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+
+const patientLinks = [
+  { to: '/', label: 'Accueil Patient' },
+  { to: '/book', label: 'Prendre un RDV' },
+  { to: '/profile', label: 'Mon Profil & Compte' },
+  { to: '/mes-documents', label: 'Mes Documents (Coffre)' },
+  { to: '/mes-rappels', label: 'Mes Rappels' },
+  { to: '/contact-urgence', label: 'Contact & Urgence' }
+];
 
 export default function PatientLayout() {
   const { user, userRole, logout } = useAuth();
@@ -20,6 +29,13 @@ export default function PatientLayout() {
     );
   }
 
+  const linkClass = ({ isActive }) =>
+    `block rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+      isActive
+        ? 'bg-blue-50 text-blue-800'
+        : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+    }`;
+
   return (
     <div className="flex min-h-screen bg-slate-50">
       <aside className="flex w-56 shrink-0 flex-col border-r border-slate-200 bg-white shadow-sm">
@@ -28,28 +44,15 @@ export default function PatientLayout() {
             Portail patient
           </div>
           <div className="mt-1 truncate text-sm font-medium text-slate-900">
-            {user?.firstName} {user?.lastName}
+            Connecté: {user?.firstName} {user?.lastName}
           </div>
         </div>
         <nav className="flex-1 space-y-1 p-3">
-          <Link
-            to="/book"
-            className="block rounded-lg bg-blue-50 px-3 py-2.5 text-sm font-medium text-blue-800"
-          >
-            Prendre un rendez-vous
-          </Link>
-          <Link
-            to="/register"
-            className="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50"
-          >
-            Mettre à jour mon profil
-          </Link>
-          <Link
-            to="/welcome"
-            className="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50"
-          >
-            Accueil public
-          </Link>
+          {patientLinks.map(({ to, label }) => (
+            <NavLink key={to} to={to} className={linkClass} end={to === '/welcome'}>
+              {label}
+            </NavLink>
+          ))}
         </nav>
         <div className="border-t border-slate-100 p-3">
           <button
